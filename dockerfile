@@ -9,3 +9,5 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # scripts to folder
 COPY . /app
+
+CMD ["python", "./ingestion.py"]
