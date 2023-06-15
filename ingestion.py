@@ -3,4 +3,5 @@ import numpy
 import bokeh
 import json
 
-print('this is a test')
+def read():
+    print('this is a test')
