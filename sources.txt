@@ -1,0 +1,3 @@
+This application has been developed by Florian Sturm for the course DLMDSEDE02.
+All code was written by the author.
+The data this application is build upon can be found at https://www.kaggle.com/datasets/qks1lver/amex-nyse-nasdaq-stock-histories?resource=download

@@ -1,13 +1,12 @@
-FROM python:latest
+# syntax=docker/dockerfile:1
 
-# working directory
+FROM python:3.8-slim-buster
+
 WORKDIR /app
 
-# dependencies
-COPY ./requirements.txt /app
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
-# scripts to folder
-COPY . /app
+COPY . .
 
-CMD ["python", "./main.py"]
+CMD ["python3", "-m" , "flask", "run", "--host=0.0.0.0"]
