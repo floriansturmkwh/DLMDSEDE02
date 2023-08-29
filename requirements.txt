@@ -6,3 +6,4 @@ scipy
 numpy
 scikit-learn
 seaborn
+bokeh

@@ -4,6 +4,7 @@ import query_access
 import config
 import sys
 import os
+import modellogic #not functional
 import numpy as np
 import pandas as pd
 from datetime import datetime
@@ -16,7 +17,7 @@ models_collection = config.globals["model_collection"]
 
 @app.route('/')
 def response_test():
-    return 'Application available. Current time: ' + str(datetime.now())
+    return 'Application available. Current time: ' + str(datetime.now()) + ' Available functions can be found in the readme. curl localhost:8000/readme'
 
 @app.route('/readme')
 def readme():
@@ -54,15 +55,23 @@ def query(symbol):
     else:
       df = query_access.read_mongo(data_collection)
       return df.to_string()
-    
 
-@app.route('/trainModel')
-def train():
-    return "Todo Train"
+@app.route('/tts/<type>')
+def tts(type):
+    # test for verifying correct tts function as real training is not implemented
+    traindata, testdata = query_access.tts_from_mongo(data_collection, type)
+    return("Train Shape = {}".format(traindata.shape) + "/ Test Shape = {}".format(testdata.shape))
 
-@app.route('/executeModel')
-def execute():
-    return "Todo Execute"
+@app.route('/trainModel/<model>')
+def train(model):
+    traindata, testdata = query_access.tts_from_mongo(data_collection, type)
+    model = modellogic.train(model, traindata, testdata)
+    return "Training the model is not implemented as part of the project"
+
+@app.route('/executeModel/<model>')
+def execute(model):
+    data = modellogic.execute(model)
+    return "Executing the model is not implemented as part of the project"
 
 if __name__ == "__main__":
     app.run(host ='0.0.0.0')

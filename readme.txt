@@ -1,24 +1,11 @@
-How to use the application:
-1. Mount a volume called raw_data and transfer any necessary csvs to it
-docker volume create raw_data
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! Step 2 needs to be repeated on reuse                                                                                   !
-! Known Issue: If the csv is too big, the application suffers a catastrophic failure on upload (Out of memory exception).! 
-! To prevent this it is suggested to split the csv in mutliple files maxing out at roughly 1.000.000 lines.              !
-! Please ensure that all data regarding a stock (symbol) are contained within the same file.                             !
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-2. Use docker compose to build the application
-docker compose -f docker-compose.mongo.yml up --builddocker volume create raw_data
-   The application is executed on localhost and can be accessed using port 8000
-2.1. Contact the application to see if it is running
-curl localhost:8000/
-   This should return a message containing the current time
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! Unless a reset of data is wanted or the volume was deleted step 3 does not need repetition for reuse. !
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-3. Start the initialize process. Attention: initialize will remove all data from the assigned Volume to guarantee function
-curl localhost:8000/initialize/<1>
-<1>: filename on data volume incl. file extension (e.g. fh_5yrs_A.csv) 
-3.1. If the initial data was split add the additional files using upload. This will add data to the already initialized database.
-curl localhost:8000/upload/<1>
-<1>: filename on data volume incl. file extension (e.g. fh_5yrs_B.csv) 
+The application can be used through localhost at Port 8000. The following commands are available:
+'/': returns current time if application is available 
+'/readme' returns the contents of this file
+'/sources' returns the listing of sources for additional contents as well as the link to the kaggle containing the stock data necessary for use of the app
+'/initialize/<source>' sets up the database from ground up deleting all previous contents to replace prior projects or delete data containing errors. <source> is to be replaced with the file name of the csv which has been uploaded to the filesystem of docker
+'/upload/<source>' adds the contents of a source csv to the already present data in the mongo instance. <source> is to be replaced with the file name of the csv which has been uploaded to the filesystem of docker
+'/queryDataCollection' returns the number of records currently present in the default database
+'/queryDataCollection/<symbol>' <symbol> needs to be replaced with one stock symbol as existent in the database. Returns all entries for this symbol as a dataframe.
+'/tts/<type>' <type> needs to be replaced with either "sklearn" or "random". Splits the available data into training and test data, then shows the count for verification purposes.
+'/trainModel/<model>' dummy function for later implementation. <model> would need to be replaced with the relevant model name
+'/executeModel/<model>' dummy function for later implementation. <model> would need to be replaced with the relevant model name

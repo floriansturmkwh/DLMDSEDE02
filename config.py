@@ -6,6 +6,7 @@ globals = { "csv_seperator": ',' # Seperator in a csv-file
           , "groupField": 'symbol'
           , "data_collection": 'DLMDSEDE02data'
           , "model_collection": 'DLMDSEDE02models'
+          , "testsplit": 0.2 #20/80 Test-Train-Split
           }
 procedures = {"date": "removeRow",
               "volume": "removeRow",

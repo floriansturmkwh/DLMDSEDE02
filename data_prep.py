@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy
-import sklearn
 import sys
 import config
+from sklearn.model_selection import train_test_split
 
 def data_ingest(URL):
     #read csv from path
@@ -66,19 +66,14 @@ def prepare_data(data):
    data = add_normalized(data)
    return data
 
-# Below are the quick examples
 def split_data(df, method):
-  if method == "sample": 
-    train=df.sample(frac=0.8,random_state=200)
-    test=df.drop(train.index)
-  elif method == "tts":
-    train, test = sklearn.model_selection.train_test_split(df, test_size=0.2)
-  elif method == 'model_select':
-    y = df.pop(config.globals["groupField"])
-    X = df
-    X_train,X_test,y_train,y_test = train_test_split(X.index,y,test_size=0.2)
-    X.iloc[X_train]
+  if method == "sklearn":
+    train, test = train_test_split(df, test_size=config.globals["testsplit"])
+    return train, test
   elif method == 'random':
-    msk = numpy.random.rand(len(df)) < 0.8
+    msk = numpy.random.rand(len(df)) < (1-config.globals["testsplit"])
     train = df[msk]
     test=df[~msk]
+    return train, test
+  else:
+    return pd.DataFrame(),pd.DataFrame()

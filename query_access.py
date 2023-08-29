@@ -1,5 +1,7 @@
 import pandas as pd
+import data_prep
 from pymongo_get_database import get_database
+import sys
 dbname = get_database()
 
 def read_mongo(collection, filter = None, count= True):
@@ -19,3 +21,9 @@ def read_mongo(collection, filter = None, count= True):
       data = {'lines':[records]}
       df = pd.DataFrame(data=data)
     return df
+
+def tts_from_mongo(collection, method):
+  df = read_mongo(collection, None, False)
+  print(df.shape, file=sys.stderr)
+  traindata, testdata = data_prep.split_data(df, method)
+  return traindata, testdata
