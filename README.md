@@ -6,7 +6,7 @@ The app consumes a csv and ingests it into a MongoDB from where it can be access
 
 <h2>How to use the application:</h2>
 1. Mount a volume called raw_data and transfer any necessary csvs to it
-<code>docker volume create raw_data<code>
+<code>docker volume create raw_data</code>
 Data can be transferred by copying it into the local path connected to the volume or through an interface such as Docker Desktop on a Windows machine.
 >Step 2 needs to be repeated on reuse                                                                                   
 >Known Issue: If the csv is too big, the application can suffer a catastrophic failure on upload (Out of memory exception). 
