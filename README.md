@@ -5,6 +5,8 @@ This application was created to build a data pipeline for the batch processing o
 The app consumes a csv and ingests it into a MongoDB from where it can be accessed when a later project needs the data to build a Machine Learning project. The data is validated and preprepared during the ingestion process to provide a consistent quality of data within the database.
 
 ## How to use the application:
+To load data from a csv into the MongoDB via use of the application the User needs to open a commandline and enter the prompts provided below in the shown order.
+
 1. Mount a volume called raw_data and transfer any necessary csvs to it
    ```
    docker volume create raw_data
@@ -34,7 +36,7 @@ The app consumes a csv and ingests it into a MongoDB from where it can be access
    curl localhost:8000/upload/<1>
    ```
       <1>: filename on data volume incl. file extension (e.g. fh_5yrs_B.csv)
-4. The batch process needs to upload the file then use the upload procedure to load the data into the mongo db
+4. The batch process needs to upload the file to the raw_data volume then use the upload procedure to load the data into the mongo db
 
 Further notes:
 The functionality of the test train split (tts) and the data ingestion can be verified by using the associated procedures in the app. The training and execution of the model is not part of the project and has only been implemented with placeholders for future use. 
