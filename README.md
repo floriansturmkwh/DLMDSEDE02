@@ -1,5 +1,5 @@
 # DLMDSEDE02
-This is the project for the course DLMDSEDE02. All code written by Florian Sturm.
+This is the project for the course DLMDSEDE02. All code written by Florian Sturm.  (floriansturmkwh and FSBeStIT are both the same person, the second account was used due to a login error)
 ## What does this application do:
 This application was created to build a data pipeline for the batch processing of stock data. The stock data this app has been built for is based on the Kaggle project: https://www.kaggle.com/datasets/qks1lver/amex-nyse-nasdaq-stock-histories?resource=download
 The app consumes a csv and ingests it into a MongoDB from where it can be accessed when a later project needs the data to build a Machine Learning project. The data is validated and preprepared during the ingestion process to provide a consistent quality of data within the database.
